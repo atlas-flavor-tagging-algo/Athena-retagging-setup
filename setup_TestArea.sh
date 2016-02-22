@@ -2,7 +2,7 @@
 
 # ________________________________________________________________________
 function _usage() {
-    echo "usage $0 $1 <branch or trunk> [<testarea directory>]"
+    echo "usage $0 $1 <branch or trunk> [<test area directory>]"
 }
 
 function _help() {
@@ -47,7 +47,7 @@ else
     echo "ATLAS environment is already setup, not setting up again"
 fi
 
-# setup directory
+# setup test area directory
 if (( $# < 2 )) ; then
     echo "Please enter the directory name (from current directory) in which you want to set up the test area: "
     read TestArea_path

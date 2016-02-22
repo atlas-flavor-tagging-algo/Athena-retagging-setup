@@ -2,7 +2,7 @@
 
 # ________________________________________________________________________
 function _usage() {
-    echo "usage $0 $1 <branch or trunk> [<testarea directory>]"
+    echo "usage $0 $1 <branch or trunk> [<test area directory>]"
 }
 
 function _help() {
@@ -10,13 +10,14 @@ function _help() {
 Script to make the creation of a Athena test area less painful.
 
 To use it you'll need:
- - Make up you mind if you want to use the trunk or an older branch.
+ - Make up your mind if you want to use the trunk or an older branch.
    This is to be specified by an additional argument when sourcing
    this script.
 
 This script will:
  - Set up the required environment variables.
- - Set up Athena in the (to be) specified directory.
+ - Set up Athena in the (to be) specified directory. The path can
+   be given as a second argument, otherwise you'll be asked to specify it.
 EOF
 }
 
@@ -30,6 +31,8 @@ _files_exist () {
   return 1
     fi
 }
+
+# sanity check
 if [ "$1" != "branch" -a "$1" != "trunk" ]; then
     echo "ERROR: You did not decide on using either the branch or the trunk in your setup.\n"
     _usage
@@ -37,7 +40,9 @@ if [ "$1" != "branch" -a "$1" != "trunk" ]; then
     exit 1
 fi
 
+# make aliases from your ~/.bashrc available
 shopt -s expand_aliases
+
 # set up ATLAS stuff
 export ATLAS_LOCAL_ROOT_BASE=/cvmfs/atlas.cern.ch/repo/ATLASLocalRootBase
 alias setupATLAS='source ${ATLAS_LOCAL_ROOT_BASE}/user/atlasLocalSetup.sh'
@@ -50,16 +55,17 @@ if [[ ! $ATLAS_LOCAL_ASETUP_VERSION ]] ; then
 else
     echo "ATLAS environment is already setup, not setting up again"
 fi
+
 # setup directory
 if (( $# < 2 )) ; then
    echo "Please enter the directory name (from current directory) in which you want to set up the test area: "
    read TestArea_name
+   echo "The test area will be set up in the directory: $PWD/$TestArea_name"
 else
     TestArea_name=$2
+    echo "The test area will be set up in the directory: $TestArea_path"
 fi
-echo "The test area will be set up in the directory: $PWD/$TestArea_name"
 
-# build and go to the test area
 mkdir -p $TestArea_name
 SRC_DIR=$(pwd)  # come back to this directory later
 cd $TestArea_name
@@ -68,7 +74,8 @@ if _files_exist ; then
     return 1
 fi
 
-# checkout packages
+# actually setting up the test area:
+# 1. checkout packages
 if [[ "$1" == "branch" ]]; then
     asetup 20.1.6.3,AtlasDerivation,gcc48,here,64
     pkgco.py BTagging-00-07-43-branch
@@ -89,21 +96,22 @@ elif [[ "$1" == "trunk" ]]; then
 fi
 svn co svn+ssh://svn.cern.ch/reps/atlasperf/CombPerf/FlavorTag/FlavourTagPerformanceFramework/trunk/xAODAthena xAODAthena
 setupWorkArea.py
-# build all the things
+# 2. build all the things
 (
     cd WorkArea/cmt
     cmt bro cmt config
     cmt bro cmt make
 )
 
-# setup run area
+# 3. setup run area (convenience)
+cd $TestArea
 mkdir -p run
 for FILE in jobOptions_Tag.py RetagFragment.py ; do
     cp $TestArea/xAODAthena/run/$FILE run/
 done
 # get default NN configuration file
 cp /afs/cern.ch/user/m/malanfer/public/training_files/AGILEPack_b-tagging.weights.json $TestArea/run/.
-# move the job options file
+# link the job options file
 cd run/
 ln -s $SRC_DIR/jobOptions_Tag.py
 
