@@ -87,10 +87,8 @@ elif [[ "$1" == "trunk" ]]; then
     asetup 20.7.3.3,AtlasDerivation,gcc48,here,64
     pkgco.py -A BTagging
     pkgco.py -A JetTagTools
-    pkgco.py TrkVKalVrtFitter-00-07-08      # TODO: check if trunk can be used without problems
-    pkgco.py InDetVKalVxInJetTool-00-06-07  # TODO: check if trunk can be used without problems
-    pkgco.py JetMomentTools-00-03-20        # TODO: check if trunk can be used without problems
-    pkgco.py PileupReweighting-00-03-06     # TODO: check if trunk can be used without problems
+    pkgco.py JetMomentTools-00-03-20        # TODO: check if the default version or a more recent one can be used without problems
+    pkgco.py PileupReweighting-00-03-06     # TODO: check if the default version or a more recent one can be used without problems
 fi
 svn co svn+ssh://svn.cern.ch/reps/atlasperf/CombPerf/FlavorTag/FlavourTagPerformanceFramework/trunk/xAODAthena xAODAthena
 setupWorkArea.py
