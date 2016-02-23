@@ -50,3 +50,6 @@ asetup 20.7.3.3,AtlasDerivation,gcc48,here,64
 
 # go back to where we started
 popd
+
+# cleanup
+unset -f _usage _help

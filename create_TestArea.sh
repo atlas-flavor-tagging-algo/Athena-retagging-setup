@@ -55,11 +55,12 @@ cd $TEST_AREA_NAME
 # ________________________________________________________________________
 # checkout packages (some are commented out because we may not need them)
 
-pkgco.py -A BTagging
-# pkgco.py JetTagTools-01-00-83
-pkgco.py -A JetTagTools
-# pkgco.py JetMomentTools-00-03-20
-# pkgco.py PileupReweighting-00-03-06
+pkgco.py BTagging-00-07-58
+pkgco.py JetTagTools-01-00-83
+# pkgco.py -A BTagging
+# pkgco.py -A JetTagTools
+# pkgco.py JetMomentTools-00-03-20 # Athena is JetMomentTools-00-03-11-06
+# pkgco.py PileupReweighting-00-03-06 # Athena is PileupReweighting-00-03-14
 
 # TODO: should we just clone this to github?
 svn co svn+ssh://svn.cern.ch/reps/atlasperf/CombPerf/FlavorTag/FlavourTagPerformanceFramework/trunk/xAODAthena xAODAthena
@@ -98,3 +99,4 @@ cd $SRC_DIR
 
 # cleanup
 unset SRC_DIR TEST_AREA_NAME
+unset -f _usage _help _files_exist
