@@ -86,7 +86,7 @@ if [[ "$1" == "branch" ]]; then
 elif [[ "$1" == "trunk" ]]; then
     asetup 20.7.3.3,AtlasDerivation,gcc48,here,64
     pkgco.py -A BTagging
-    pkgco.py -A JetTagTools
+    pkgco.py JetTagTools-01-00-83
     pkgco.py JetMomentTools-00-03-20        # TODO: check if the default version or a more recent one can be used without problems
     pkgco.py PileupReweighting-00-03-06     # TODO: check if the default version or a more recent one can be used without problems
 fi
@@ -102,9 +102,15 @@ setupWorkArea.py
 # 3. setup run area (convenience)
 cd $TestArea
 mkdir -p run
-for FILE in jobOptions_Tag.py RetagFragment.py ; do
-    cp $TestArea/xAODAthena/run/$FILE run/
+if [[ "$1" == "branch" ]]; then
+    declare -a files_arr=("jobOptions_Tag.py" "RetagFragment.py")
+elif [[ "$1" == "trunk" ]]; then
+    declare -a files_arr=("jobOptions_Tag_trunk.py" "RetagFragment.py")
+fi
+for i in "${files_arr[@]}"; do
+    cp $TestArea/xAODAthena/run/$FILE run/.
 done
+
 # get default NN configuration file
 cp /afs/cern.ch/user/m/malanfer/public/training_files/AGILEPack_b-tagging.weights.json $TestArea/run/.
 # link the job options file
