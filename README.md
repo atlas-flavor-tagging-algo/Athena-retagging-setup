@@ -3,30 +3,26 @@
 #### Purpose of these scripts:
 
 Setting up Athena with retagging including DL1 in the
-FlavourTagPerformance framework according to [recommendations][1]
-in one go.
+FlavourTagPerformance framework, according to
+[Valerio's recommendations][1].
 
 #### How to use it:
 
-1. Start from a new lxplus session.
-1. To create a Athena test area, run
+ 1. Start from a new lxplus session.
+ 2. To create a Athena test area, run
 
-   `source create_TestArea.sh <trunk-or-branch> [<path-to-test-area>]`
+    `source create_TestArea.sh <path-to-test-area>`
 
-   where the first argument specifies whether you want to use the
-   FlavourTaggingPerformance framework with branch package combination
-   setup or using the JetTagTols and BTaggging trunk setup.
-   Optionally, you can add the name of the directory in which you want
-   your test area to be set up as a second argument. Otherwise,
-   you'll be asked to specify it.
+    This will create a subdirectory and build the required packages
 
-1. **Once the test area is already set up**,
 
-    `source setup_TestArea.sh <trunk-or-branch> [<path-to-test-area>]`
+ 3. **Once the test area is already set up**,
+
+    `source setup_TestArea.sh <path-to-test-area>`
 
     will, when starting another time from a new lxplus session, set up
-    Athena in your previously created test area.
-    Rules for the arguments remain the same.
+    Athena in your previously created test area.  Rules for the
+    arguments remain the same.
 
 That's it.
 
@@ -36,9 +32,8 @@ That's it.
 This will get all the packages required to run retagging with the DL1
 tagger using the flavourtagging performance framework, whether using
 the setup in the trunk or the branches as described in aforementioned
-[recommendations][1].
-The packages will automatically be compiled and the work area will
-be set up.
+[recommendations][1].  The packages will automatically be compiled and
+the work area will be set up.
 
 
 ###### Details on the provided job options (JO):
