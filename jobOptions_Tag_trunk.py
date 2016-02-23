@@ -148,7 +148,7 @@ from BTagging.BTaggingFlags import BTaggingFlags
 
 # if the calibration for DL1 is to be read in from a local JSON file
 BTaggingFlags.DL1 = True
-BTaggingFlags.DL1LocalNNConfig = "AGILEPack_December_1D_btagging.json"
+BTaggingFlags.DL1LocalNNConfig = "BTagging_DL1_NNconfig.json"
 
 include("RetagFragment.py")
 if doRetag:
