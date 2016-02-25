@@ -77,7 +77,8 @@ setupWorkArea.py
 # setup run area (do this in a subshell to avoid dumping local variables)
 (
     mkdir -p run
-    for FILE in jobOptions_Tag.py RetagFragment.py ; do
+    # copy files out of the xAODFramework
+    for FILE in RetagFragment.py ; do
         cp $TestArea/xAODAthena/run/$FILE run/
     done
 
@@ -89,9 +90,9 @@ setupWorkArea.py
     else
         cp $LOCAL_DL1_CONFIG $TestArea/run/.
     fi
-    # link the job options file
+    # link the job options files from this package
     cd run/
-    ln -sf $SRC_DIR/jobOptions_Tag_trunk.py jobOptions_tag.py
+    ln -sf $SRC_DIR/jobOptions_tag.py
     ln -sf $SRC_DIR/jobOptions_tagbb.py
 )
 
