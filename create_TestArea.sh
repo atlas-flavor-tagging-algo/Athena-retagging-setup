@@ -91,7 +91,8 @@ setupWorkArea.py
     fi
     # link the job options file
     cd run/
-    ln -sf $SRC_DIR/jobOptions_Tag_trunk.py
+    ln -sf $SRC_DIR/jobOptions_Tag_trunk.py jobOptions_tag.py
+    ln -sf $SRC_DIR/jobOptions_tagbb.py
 )
 
 # go back to the directory we started in
