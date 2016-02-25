@@ -195,6 +195,13 @@ from BTagging.BTaggingFlags import BTaggingFlags
 #### if the new file is already in the datatbase: simple edit the name
 ###############BTaggingFlags.CalibrationTag = 'BTagCalibRUN12-08-10'
 
+# this is pulled from the double-b optinos
+BTaggingFlags.CalibrationTag = 'BTagCalibRUN12-08-13'
+BTaggingFlags.CalibrationChannelAliases += ["AntiKt10LCTopoTrimmedPtFrac5SmallR20->AntiKt10LCTopo,AntiKt6LCTopo,AntiKt6TopoEM,AntiKt4LCTopo,AntiKt4TopoEM,AntiKt4EMTopo"]
+for JetCollectionExKtSubJet in JetCollectionExKtSubJetList:
+  BTaggingFlags.CalibrationChannelAliases += [JetCollectionExKtSubJet[:-4]+"->AntiKt4LCTopo"]
+
+
 #### if you want to use your own calibration file use this part below
 #BTaggingFlags.CalibrationFromLocalReplica = True
 #BTaggingFlags.CalibrationFolderRoot = '/GLOBAL/BTagCalib/'
