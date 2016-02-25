@@ -9,12 +9,7 @@ doSMT             =False   ## include variables for SMT tagger
 doRetag           =True   ## perform retagging
 doComputeReference=False
 JetCollections = [
-  ##"AntiKt10LCTopoJets"
-  'AntiKt4EMTopoJets',
-  'AntiKt4PV0TrackJets',
-  'AntiKt3PV0TrackJets',
-  'AntiKt2PV0TrackJets',
-  #'AntiKt4LCTopoJets',
+  'AntiKt10LCTopoTrimmedPtFrac5SmallR20Jets'
   ]
 
 #### automatic AF2 switch
@@ -140,10 +135,6 @@ from BTagging.BTaggingFlags import BTaggingFlags
 #BTaggingFlags.CalibrationFromLocalReplica = True
 #BTaggingFlags.CalibrationFolderRoot = '/GLOBAL/BTagCalib/'
 #BTaggingFlags.CalibrationTag = 'BTagCalibRUN2-test'
-
-# if the calibration for DL1 is to be read in from a local JSON file
-BTaggingFlags.DL1 = True
-BTaggingFlags.DL1LocalNNConfig = "BTagging_DL1_NNconfig.json"
 
 include("RetagFragment.py")
 if doRetag:
