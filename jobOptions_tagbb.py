@@ -122,6 +122,70 @@ from AtlasGeoModel.InDetGMJobProperties import GeometryFlags as geoFlags
 print "geoFlags.Run()   = "+geoFlags.Run()
 print "geoFlags.isIBL() = "+str(  geoFlags.isIBL() )
 
+# build AntiKt10LCTopoTrimmedPtFrac5SmallR20Jets
+from DerivationFrameworkJetEtMiss.ExtendedJetCommon import *
+addDefaultTrimmedJets(algSeq, "WhoCares")
+
+
+# make exkt subjet finding tool
+def buildExclusiveSubjets(JetCollectionName, nsubjet, ToolSvc = ToolSvc):
+    from JetSubStructureMomentTools.JetSubStructureMomentToolsConf import SubjetFinderTool
+    from JetSubStructureMomentTools.JetSubStructureMomentToolsConf import SubjetRecorderTool
+
+    SubjetContainerName = "%sExKt%iSubJets" % (JetCollectionName.replace("Jets", ""), nsubjet)
+
+    subjetrecorder = SubjetRecorderTool("subjetrecorder%i_%s" % (nsubjet, JetCollectionName))
+    ToolSvc += subjetrecorder
+
+    subjetlabel = "ExKt%iSubJets" % (nsubjet)
+
+    subjetrecorder.SubjetLabel = subjetlabel
+    subjetrecorder.SubjetContainerName = SubjetContainerName
+
+    from JetTagTools.JetTagToolsConf import Analysis__ExKtbbTagTool
+    ExKtbbTagToolInstance = Analysis__ExKtbbTagTool(
+                                                    name = "ExKtbbTagTool%i_%s" % (nsubjet, JetCollectionName),
+                                                    JetAlgorithm = "Kt",
+                                                    JetRadius = 10.0,
+                                                    PtMin = 5000,
+                                                    ExclusiveNJets = 2,
+
+                                                    # SubjetFinder = subjetfinder,
+                                                    SubjetRecorder = subjetrecorder,
+                                                    SubjetLabel = subjetlabel,
+                                                    SubjetAlgorithm_BTAG = "AntiKt",
+                                                    SubjetRadius_BTAG = 0.4
+                                                   )
+    ToolSvc += ExKtbbTagToolInstance
+
+    return (ExKtbbTagToolInstance, SubjetContainerName)
+
+# build exkt subjets here
+JetCollectionExKtSubJetList = []
+for JetCollectionExKt in JetCollections:
+  # build ExKtbbTagTool instance
+  (ExKtbbTagToolInstance, SubjetContainerName) = buildExclusiveSubjets(JetCollectionExKt, 2)
+  JetCollectionExKtSubJetList += [SubjetContainerName]
+  
+  # approach 2: existing JetRecTool
+  from JetRec.JetRecConf import JetRecTool
+  jetrec = JetRecTool(
+                       name = "JetRecTool_ExKtbb_%s" % (JetCollectionExKt),
+                       OutputContainer = JetCollectionExKt,
+                       InputContainer = JetCollectionExKt,
+                       JetModifiers = [ExKtbbTagToolInstance],
+                     )
+  ToolSvc += jetrec
+  from JetRec.JetRecConf import JetAlgorithm
+  algSeq += JetAlgorithm(
+                          name = "JetAlgorithm_ExKtbb_%s" % (JetCollectionExKt),
+                          Tools = [jetrec],
+                        )
+
+
+print "Fat Jet Collection:",JetCollections
+print "Fat Jet ExKt SubJet Collection:",JetCollectionExKtSubJetList
+
 
 ##########################################################################################################################################################
 ##########################################################################################################################################################
