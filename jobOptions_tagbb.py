@@ -3,7 +3,7 @@
 ### MAIN SWITCHES
 
 ONLYEssentialInfo =False   ## write minimal amount of info on the output file
-ReduceInfo        =True    ## write minimal amount of info on the output file
+ReduceInfo        =False    ## write minimal amount of info on the output file
 DoMSV             =False   ## include variables for MSV tagger
 doSMT             =False   ## include variables for SMT tagger
 doRetag           =True   ## perform retagging
