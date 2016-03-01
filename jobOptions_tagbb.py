@@ -28,7 +28,7 @@ if ContentMode!=-1:
 import glob
 from AthenaCommon.AthenaCommonFlags import jobproperties as jp
 #jp.AthenaCommonFlags.EvtMax.set_Value_and_Lock( vars().get('EVTMAX', -1) )
-jp.AthenaCommonFlags.EvtMax.set_Value_and_Lock(-1)
+jp.AthenaCommonFlags.EvtMax.set_Value_and_Lock(10)
 
 jp.AthenaCommonFlags.FilesInput = [
   "/afs/cern.ch/work/n/nwhallon/public/xAOD_samples/mc15_13TeV.301523.MadGraphPythia8EvtGen_A14NNPDF23LO_RS_G_hh_bbbb_c20_M2000.merge.AOD.e3820_s2608_s2183_r6630_r6264_tid05471453_00/AOD.05471453._000002.pool.root.1"
@@ -206,6 +206,18 @@ for JetCollectionExKtSubJet in JetCollectionExKtSubJetList:
 #BTaggingFlags.CalibrationFromLocalReplica = True
 #BTaggingFlags.CalibrationFolderRoot = '/GLOBAL/BTagCalib/'
 #BTaggingFlags.CalibrationTag = 'BTagCalibRUN2-test'
+
+defaultTaggers = ['IP2D', 'IP3D', 'SV0', 'MultiSVbb1', 'MultiSVbb2', 'SV1', 'BasicJetFitter', 'JetFitterTag', 'GbbNNTag', 'MV2c00', 'MV2c10', 'MV2c20', 'MV2c100', 'MV2m']
+specialTaggers = ['ExKtbb_Hbb_MV2Only', 'ExKtbb_Hbb_MV2andJFDRSig', 'ExKtbb_Hbb_MV2andTopos']
+
+# from DerivationFrameworkFlavourTag.FlavourTagCommon import FlavorTagInit
+# FlavorTagInit(myTaggers      = defaultTaggers,
+#               JetCollections = JetCollectionExKtSubJetList,
+#               Sequencer      = algSeq)
+# FlavorTagInit(myTaggers      = defaultTaggers + specialTaggers,
+#               JetCollections = JetCollections,
+#               Sequencer      = algSeq)
+
 
 include("RetagFragment.py")
 if doRetag:
