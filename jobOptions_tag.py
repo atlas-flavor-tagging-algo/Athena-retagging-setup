@@ -151,6 +151,11 @@ from BTagging.BTaggingFlags import BTaggingFlags
 BTaggingFlags.DL1 = True
 BTaggingFlags.DL1LocalNNConfig = "BTagging_DL1_NNconfig.json"
 
+BTaggingFlags.TagNtupleDumper = True
+BTaggingFlags.TagNtupleStream = "FTAG"
+svcMgr.THistSvc.Output.append(
+  "FTAG DATAFILE='tagger_inputs.root' OPT='RECREATE'")
+
 include("RetagFragment.py")
 if doRetag:
   from BTagging.BTaggingConfiguration import getConfiguration
