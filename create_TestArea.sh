@@ -84,11 +84,13 @@ setupWorkArea.py
         echo "ERROR: local DL1 config not found" >&2
     else
         cp $LOCAL_DL1_CONFIG $TestArea/run/.
+        chmod -x $TestArea/run/${LOCAL_DL1_CONFIG##*/}
     fi
     # link the job options files from this package
+    JO_DIR=../xAODAthena/run
     cd run/
-    ln -sf $SRC_DIR/jobOptions_tag.py
-    ln -sf $SRC_DIR/jobOptions_tagbb.py
+    ln -sf $JO_DIR/jobOptions_tagdl1.py
+    ln -sf $JO_DIR/jobOptions_Tag_bb.py jobOptions_tagbb.py
 )
 
 # go back to the directory we started in
