@@ -58,8 +58,8 @@ cd $TEST_AREA_NAME
 pkgco.py -A BTagging
 pkgco.py -A JetTagTools
 
-git clone git@github.com:atlas-flavor-tagging-algo/xAODAthena.git
-# svn co svn+ssh://svn.cern.ch/reps/atlasperf/CombPerf/FlavorTag/FlavourTagPerformanceFramework/trunk/xAODAthena
+# git clone git@github.com:atlas-flavor-tagging-algo/xAODAthena.git
+svn co svn+ssh://svn.cern.ch/reps/atlasperf/CombPerf/FlavorTag/FlavourTagPerformanceFramework/trunk/xAODAthena
 setupWorkArea.py
 
 # ________________________________________________________________________
