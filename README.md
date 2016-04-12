@@ -2,11 +2,10 @@
 
 #### Purpose of these scripts:
 
-Setting up Athena with retagging including DL1 in the
-FlavourTagPerformance framework, according to
+Setting up Athena with retagging, according to
 [Valerio's recommendations][1].
 
-#### How to use it:
+#### How to use:
 
  1. Start from a new lxplus session.
  2. To create a Athena test area, run
@@ -20,26 +19,30 @@ FlavourTagPerformance framework, according to
 
     `source setup_TestArea.sh <path-to-test-area>`
 
-    will, when starting another time from a new lxplus session, set up
-    Athena in your previously created test area.  Rules for the
-    arguments remain the same.
+    will set up Athena in your previously created test area.  Rules
+    for the arguments remain the same.
 
  4. The Athena Job Options files will be linked under
     `<path-to-test-area>/run`. Go there and run
 
-    `athena {jobOptions_tag.py, jobOptions_tagbb.py}`
+    `athena {jobOptions_tagdl1.py, jobOptions_tagbb.py}`
 
 That's it.
 
 
-###### What this will do:
+#### What this will do:
 
 This will get all the packages required to run retagging using the
-flavourtagging performance framework. The packages will automatically
+flavour tagging performance framework. The packages will automatically
 be compiled and the work area will be set up.
 
+#### Details for specific job options (JO):
 
-###### Details on the DL1 job options (JO):
+The `run` currently contains links to two sets of job options. Use
+`jobOptions_tagdl1.py` to run DL1 and single-b tagging,
+`jobOptions_tagbb.py` for double-b tagging.
+
+##### DL1 job options:
 
 Retagging will be [switched on][2] and an xAOD which can be used for a
 test run is [defined in a public directory][3] as well.  The JO also
@@ -53,15 +56,13 @@ current Athena settings it is also possible to switch to using a local
 NN configuration file (in JSON format with special syntax!) that will
 be used by DL1 by [defining it][4].
 
+#### Outputs:
 
-###### About actually using it in a test run:
-
-In order to run the job, go to `$TestArea/run/` and run `athena
-jobOptions_tag.py`.  The ROOT output file where the retagging ouput is
-stored in branches is stored as `$TestArea/run/flav_Akt4EMTo.root`.
+The ROOT output file with retagged jets is stored as
+`$TestArea/run/flav_<jet collection name>.root`.
 
 
-###### In case of problems:
+#### In case of problems:
 
 For feedback, contact me at `marie.christine.lanfermann@cern.ch`.
 
