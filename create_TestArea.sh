@@ -55,6 +55,7 @@ cd $TEST_AREA_NAME
 # ________________________________________________________________________
 # checkout packages (some are commented out because we may not need them)
 
+cmt co -r MVAUtils-00-00-04 Reconstruction/MVAUtils
 pkgco.py -A BTagging
 pkgco.py -A JetTagTools
 
