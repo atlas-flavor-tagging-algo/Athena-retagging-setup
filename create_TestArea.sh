@@ -55,8 +55,8 @@ cd $TEST_AREA_NAME
 # ________________________________________________________________________
 # checkout packages (some are commented out because we may not need them)
 
-pkgco.py BTagging-00-07-61-branch
-pkgco.py JetTagTools-01-00-85-branch
+pkgco.py -A BTagging
+pkgco.py -A JetTagTools
 
 # git clone git@github.com:atlas-flavor-tagging-algo/xAODAthena.git
 svn co svn+ssh://svn.cern.ch/reps/atlasperf/CombPerf/FlavorTag/FlavourTagPerformanceFramework/trunk/xAODAthena
