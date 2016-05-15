@@ -93,6 +93,16 @@ setupWorkArea.py
     cd run/
     ln -sf $JO_DIR/jobOptions_tagdl1.py
     ln -sf $JO_DIR/jobOptions_Tag_bb.py jobOptions_tagbb.py
+
+    # download the IPMP config
+    wget http://dguest.web.cern.ch/dguest/nn-tests/ipmp.json.gz
+    gunzip ipmp.json.gz
+
+    # patch the dl1 config
+    patch -p0 < $JO_DIR/rnnip-from-dl1.patch
+    mv jobOptions_tagdl1.py jobOptions_ipmp.py
+    # and relink
+    ln -sf $JO_DIR/jobOptions_tagdl1.py
 )
 
 # go back to the directory we started in
