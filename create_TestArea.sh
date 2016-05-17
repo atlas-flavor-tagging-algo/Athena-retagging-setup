@@ -97,6 +97,9 @@ setupWorkArea.py
     # download the IPMP config
     wget http://dguest.web.cern.ch/dguest/nn-tests/ipmp.json.gz
     gunzip ipmp.json.gz
+    # and IPMK
+    wget http://dguest.web.cern.ch/dguest/nn-tests/ipmk.json.gz
+    gunzip ipmk.json.gz
 
     # patch the dl1 config
     patch -p0 < $JO_DIR/rnnip-from-dl1.patch
