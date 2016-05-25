@@ -46,7 +46,7 @@ else
     echo "ATLAS environment is already setup, not setting up again"
 fi
 # actually setting up Athena
-asetup 20.7.5.4,AtlasDerivation,gcc49,here,64
+asetup 20.7.6.1,AtlasDerivation,here
 
 # go back to where we started
 popd
