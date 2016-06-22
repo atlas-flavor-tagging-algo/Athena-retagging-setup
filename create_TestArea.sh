@@ -57,10 +57,10 @@ cd $TEST_AREA_NAME
 
 cmt co -r MVAUtils-00-00-04 Reconstruction/MVAUtils
 pkgco.py BTagging-00-07-62
-pkgco.py -A JetTagTools
+pkgco.py JetTagTools-01-00-91
 
 # git clone git@github.com:atlas-flavor-tagging-algo/xAODAthena.git
-svn co svn+ssh://svn.cern.ch/reps/atlasperf/CombPerf/FlavorTag/FlavourTagPerformanceFramework/trunk/xAODAthena
+svn co svn+ssh://svn.cern.ch/reps/atlasperf/CombPerf/FlavorTag/FlavourTagPerformanceFramework/tags/FlavourTagPerformanceFramework-00-00-08/xAODAthena
 setupWorkArea.py
 
 # ________________________________________________________________________
