@@ -60,7 +60,7 @@ pkgco.py BTagging-00-07-62
 pkgco.py JetTagTools-01-00-91
 
 # git clone git@github.com:atlas-flavor-tagging-algo/xAODAthena.git
-svn co svn+ssh://svn.cern.ch/reps/atlasperf/CombPerf/FlavorTag/FlavourTagPerformanceFramework/tags/FlavourTagPerformanceFramework-00-00-08/xAODAthena
+svn co svn+ssh://svn.cern.ch/reps/atlasperf/CombPerf/FlavorTag/FlavourTagPerformanceFramework/tags/FlavourTagPerformanceFramework-00-00-09/xAODAthena
 setupWorkArea.py
 
 # ________________________________________________________________________
