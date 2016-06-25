@@ -79,20 +79,13 @@ setupWorkArea.py
         cp $TestArea/xAODAthena/run/$FILE run/
     done
 
-    # get default NN configuration file
-    BASE_NN_DIR=/afs/cern.ch/work/m/malanfer/public/training
-    LOCAL_DL1_CONFIG=${BASE_NN_DIR}/BTagging_DL1_NNconfig.json
-    if [[ ! -f $(readlink -m $LOCAL_DL1_CONFIG) ]] ; then
-        echo "ERROR: local DL1 config not found" >&2
-    else
-        cp $LOCAL_DL1_CONFIG $TestArea/run/.
-        chmod -x $TestArea/run/${LOCAL_DL1_CONFIG##*/}
-    fi
     # link the job options files from this package
     JO_DIR=../xAODAthena/run
     cd run/
     ln -sf $JO_DIR/jobOptions_tagdl1.py
     ln -sf $JO_DIR/jobOptions_Tag_bb.py jobOptions_tagbb.py
+    ln -sf $JO_DIR/jobOptions_Tag.py jobOptions_tag.py
+    patch jobOptions_tag.py < ../../single-b-jo-hack.patch
 )
 
 # go back to the directory we started in
