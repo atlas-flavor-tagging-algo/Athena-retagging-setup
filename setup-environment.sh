@@ -24,7 +24,7 @@ if (( $# < 1 )) ; then
 fi
 
 if [[ ! -d $1 ]] ; then
-    echo "ERROR: $TEST_AREA_NAME doesn't exist" >&2
+    echo "ERROR: $1 doesn't exist" >&2
     return 1
 fi
 

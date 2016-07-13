@@ -10,14 +10,18 @@ Setting up Athena with retagging, according to
  1. Start from a new lxplus session.
  2. To create a Athena test area, run
 
-    `source create_TestArea.sh <path-to-test-area>`
+    `. setup-and-build-all.sh <path-to-test-area>`
 
-    This will create a subdirectory and build the required packages
+    This will create a subdirectory and build the required
+    packages. If anything goes wrong (i.e. the compilation will
+    randomly segfault, the best known solution is to try again), you
+    can rerun the individual executables from the
+    `<path-to-test-area>` directory.
 
 
  3. **If the test area has already been built**,
 
-    `source setup_TestArea.sh <path-to-test-area>`
+    `. setup-environment.sh <path-to-test-area>`
 
     will set up Athena in your previously created test area.  Rules
     for the arguments remain the same.
