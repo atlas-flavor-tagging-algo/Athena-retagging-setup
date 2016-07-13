@@ -47,7 +47,7 @@ ${SRC_DIR}/checkout-packages.sh
 ${SRC_DIR}/build-packages.sh
 ${SRC_DIR}/copy-job-options.sh
 # several things to setup rnnip
-${SRC_DIR}/add-rnnip-job-options.sh
+# ${SRC_DIR}/add-rnnip-job-options.sh
 
 # go back to the directory we started in
 cd $SRC_DIR
