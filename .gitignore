@@ -5,4 +5,5 @@
 # ignore commit messages
 commit.txt
 # don't ignore the scripts dir, though
-!/scripts/
+!/grid-submit-scripts/
+!/job-options-patches/
