@@ -1,0 +1,54 @@
+Index: jobOptions_Tag.py
+===================================================================
+--- jobOptions_Tag.py	(revision 322555)
++++ jobOptions_Tag.py	(working copy)
+@@ -10,10 +10,11 @@
+ doComputeReference=False
+ JetCollections = [
+   ##"AntiKt10LCTopoJets"
+-  'AntiKt4EMTopoJets',
+-  'AntiKt4PV0TrackJets',
++  # 'AntiKt4EMTopoJets',
++  # 'AntiKt4PV0TrackJets',
+   #'AntiKt3PV0TrackJets',
+   'AntiKt2PV0TrackJets',
++  # 'AntiKtVR50Rmax4Rmin0TrackJets',
+   #'AntiKt4LCTopoJets',
+   ]
+ 
+@@ -32,18 +33,16 @@
+ ### Define input xAOD and output ntuple file name
+ import glob
+ from AthenaCommon.AthenaCommonFlags import jobproperties as jp
+-jp.AthenaCommonFlags.EvtMax.set_Value_and_Lock( vars().get('EVTMAX', -1) )
++# jp.AthenaCommonFlags.EvtMax.set_Value_and_Lock( vars().get('EVTMAX', -1) )
++jp.AthenaCommonFlags.EvtMax.set_Value_and_Lock( 10 )
+ 
+-jp.AthenaCommonFlags.FilesInput = [
+-"/afs/cern.ch/user/g/ggonella/ggonella/public/ForValerio/mc15_13TeV.410000.PowhegPythiaEvtGen_P2012_ttbar_hdamp172p5_nonallhad.merge.AOD.e3698_s2608_s2183_r6630_r6264_tid05419191_00/AOD.05419191._000184.pool.root.1"
+-  ##"/afs/cern.ch/user/v/vdao/mc15_8TeV.110401.PowhegPythia_P2012_ttbar_nonallhad.recon.AOD.e3099_s2578_r7135_tid06628604_00/AOD.06628604._000221.pool.root.1",
+-  ##"/afs/cern.ch/user/v/vdao/valid1.110401.PowhegPythia_P2012_ttbar_nonallhad.recon.AOD.e3099_s2578_r7058_tid06432679_00/AOD.06432679._000066.pool.root.1",
+-  ##"/afs/cern.ch/work/v/vdao//xAODs/dataNtuple/Peter/mc15_13TeV.410000.PowhegPythiaEvtGen_P2012_ttbar_hdamp172p5_nonallhad.merge.AOD.e3698_a766_a767_r6264_tid05443510_00/AOD.05443510._000453.pool.root.1",
+-  ##"/afs/cern.ch/work/v/vdao//xAODs/dataNtuple/Peter/mc15_13TeV.410004.PowhegHerwigppEvtGen_UEEE5_ttbar_hdamp172p5_nonallhad.merge.AOD.e3836_a766_a767_r6264_tid05457978_00/AOD.05457978._000222.pool.root.1",
+-  ##"/afs/cern.ch/work/v/vdao//xAODs/dataNtuple/Peter/mc15_13TeV.410006.PowhegPythia8EvtGen_A14_ttbar_hdamp172p5_nonallhad.merge.AOD.e3836_a766_a767_r6264_tid05457982_00/AOD.05457982._000217.pool.root.1",
+-  ##"/afs/cern.ch/work/v/vdao//xAODs/dataNtuple/Peter/mc15_13TeV.410022.Sherpa_CT10_ttbar_SingleLeptonP_MEPS_NLO.merge.AOD.e3959_a766_a780_r6264_tid05960719_00/AOD.05960719._000038.pool.root.1"
+-  ]
++# FTAG5 files
++ttbar_dir = (
++  '/afs/cern.ch/user/d/dguest/afswork/data/'
++  'group.phys-exotics.410000.PowhegPythiaEvtGen_P2012_ttbar_hdamp172p5_nonallhad.recon.AOD.e3698_s2608_s2183_r7377_r7351.FTAG5-V1_EXT0')
++jp.AthenaCommonFlags.FilesInput = glob.glob(ttbar_dir + '/*.root')
+ 
++
+ ##svcMgr.EventSelector.InputCollections = jp.AthenaCommonFlags.FilesInput()
+ from PyUtils import AthFile
+ af = AthFile.fopen( jp.AthenaCommonFlags.FilesInput()[0] )
+@@ -209,7 +208,7 @@
+   alg.JetCollectionName = JetCollection
+   alg.doSMT = doSMT
+   if "AntiKt2PV0TrackJets" in JetCollection or "Truth" in JetCollection:
+-    alg.JetPtCut = 10.e3
++    alg.JetPtCut = 5e3
+     alg.CleanJets     = False
+     alg.CalibrateJets = False
+   elif "AntiKt3PV0TrackJets" in JetCollection or "AntiKt4PV0TrackJets" in JetCollection:

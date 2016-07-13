@@ -6,4 +6,4 @@
 commit.txt
 # don't ignore the scripts dir, though
 !/grid-submit-scripts/
-!/job-options-patches/
+!/job-option-patches/
