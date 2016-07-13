@@ -5,7 +5,7 @@ set -eu
 cd run/
 
 # download the IPMP config
-wget http://dguest.web.cern.ch/dguest/nn-tests/ipmp.json.gz
+wget http://dguest.web.cern.ch/dguest/nn-tunings/ipmp.json.gz
 gunzip ipmp.json.gz
 # and IPMK
 wget http://dguest.web.cern.ch/dguest/nn-tests/ipmk.json.gz
