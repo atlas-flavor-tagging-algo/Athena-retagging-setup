@@ -10,7 +10,7 @@ set -eu
 DS=$1
 TAG=${2-}
 
-# check the voms
+# -- check the voms --
 VOMS=$(voms-proxy-info --vo 2> /dev/null)
 if [[ -z $VOMS ]] ; then
     echo "ERROR: no voms, quitting" >&2
@@ -26,21 +26,30 @@ elif [[ $VOMS == atlas ]] ; then
     fi
 fi
 
-# figure out new DS name
-HEAD=$(echo $DS | cut -d : -f 2 | cut -d . -f 1-2)
-PROC=$(echo $DS | cut -d . -f 3 | sed -r 's/([^_]*).*/\1/')
-FLAV=$(echo $DS | cut -d . -f 5 | sed -r 's/.*AOD_(.*)/\1/')
-TAGS=$(echo $DS | cut -d . -f 6 | sed -r 's:/::')
+# -- figure out new DS name --
+# first try to match the somthing_XXTeV
+HEAD=$(echo $DS | egrep -o '[^.:]*_[0-9]+TeV' | head -n1 )
+# take the part after the DSID
+SDS=$(echo $DS | sed -r 's/.*\.([0-9]{6,}.*)/\1/')
+DSID=$(echo $SDS | cut -d . -f 1)
+PROC=$(echo $SDS | cut -d . -f 2 | sed -r 's/([^_]*).*/\1/')
+# try to figure out the type of dataset
+FLAV_RE='s/.*\.([A-Z_0-9]{3,})\..*/\1/' # get AOD_* string
+AOD_STRIP_RE='s/.*AOD_(.*)/\1/'         # remove AOD part
+FLAV=$(echo $SDS | sed -r -e $FLAV_RE -e $AOD_STRIP_RE)
+# magic tag finder regex
+TAGS_RE='\.([a-z][0-9]+_?)+[\./]'
+TAGS=$(echo $SDS | egrep -o $TAGS_RE | sed -r 's/\.(.*)[\./]/\1/')
 GITT=$(git describe)
 APP=""
 if [[ -n $TAG ]] ; then
     APP=.${TAG}
 fi
-OUT=${SCOPE}.${HEAD}.${PROC}_${FLAV}.${TAGS}.${GITT}${APP}
+OUT=${SCOPE}.${HEAD:-derived}.${DSID}.${PROC}_${FLAV}.${TAGS}.${GITT}${APP}
 
 # possibly cut down the size further
 if (( $(echo $OUT | wc -c) > 115 )) ; then
-    OUT=${SCOPE}.${HEAD}.${FLAV}.${TAGS}.${GITT}${APP}
+    OUT=${SCOPE}.${DSID}.${FLAV}.${TAGS}.${GITT}${APP}
 fi
 if (( $(echo $OUT | wc -c) > 115 )) ; then
     echo "ERROR: ds name $OUT is too long" >&2
