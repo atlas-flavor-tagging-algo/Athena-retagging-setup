@@ -34,19 +34,19 @@ PREFIX_CMD=""
 TAG=""
 UPLOAD_LOCAL=""
 while getopts ":hn:j:d:t:ue" opt $@; do
-	  case $opt in
-	      h) _help; exit 1;;
-	      n) OPTS+=" --nFiles ${OPTARG}";;
+    case $opt in
+        h) _help; exit 1;;
+        n) OPTS+=" --nFiles ${OPTARG}";;
         j) JO=${OPTARG};;
         d) DS=${OPTARG};;
         t) TAG=${OPTARG};;
         u) UPLOAD_LOCAL=1;;
         e) PREFIX_CMD=echo;;
-	      # handle errors
-	      \?) _usage; echo "Unknown option: -$OPTARG" >&2; exit 1;;
+        # handle errors
+        \?) _usage; echo "Unknown option: -$OPTARG" >&2; exit 1;;
         :) _usage; echo "Missing argument for -$OPTARG" >&2; exit 1;;
         *) _usage; echo "Unimplemented option: -$OPTARG" >&2; exit 1;;
-	  esac
+    esac
 done
 
 SCRIPT_DIR=$(dirname $BASH_SOURCE)
