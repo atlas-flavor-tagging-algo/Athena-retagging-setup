@@ -13,7 +13,9 @@ _help() {
     _usage
     cat <<EOF
 
-Submit job over some dataset.
+Submit job over some dataset. Internally figures out the output
+dataset name and special permissions (based on the options you setup
+with voms).
 
 Options:
  -h: get help

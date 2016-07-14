@@ -40,6 +40,12 @@ This will get all the packages required to run retagging using the
 flavour tagging performance framework. The packages will automatically
 be compiled and the work area will be set up.
 
+#### Submitting Grid Jobs
+
+Several scripts are included in `grid-submit-scripts`, the most
+important being `simple-grid-sub.sh`. Run with `-h` to get more
+information.
+
 #### Details for specific job options (JO):
 
 The `run` currently contains links to two sets of job options. Use
