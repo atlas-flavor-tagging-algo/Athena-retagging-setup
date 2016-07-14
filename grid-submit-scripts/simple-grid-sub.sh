@@ -54,4 +54,4 @@ OPTS+=${OUT_OPTS}
 # OPTS+=" --nFiles 50"
 # OPTS+=" --excludedSite=ANALY_FZK,ANALY_FZK_HI"
 OPTS+=" --extFile ipmp.json,ipmk.json,dl1.json"
-${PREFIX_CMD} pathena ${JO} --inDS $DS $OUT_OPTS $OPTS
+${PREFIX_CMD} pathena ${JO} --inDS $DS $OPTS

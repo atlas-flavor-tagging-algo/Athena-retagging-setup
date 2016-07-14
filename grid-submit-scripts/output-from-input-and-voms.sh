@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# Script to figure out the voms and output file name to submit
-# with. Removes unneeded crap from the input file name to get the
-# output name and checks for `production` roll to find the submit
+# Script to figure out the voms and output file nameing options to
+# submit with. Removes unneeded crap from the input file name to get
+# the output name and checks for `production` roll to find the submit
 # rights.
 
 set -eu
@@ -37,4 +37,4 @@ if [[ -n $TAG ]] ; then
     OUT+=.${TAG}
 fi
 
-echo ${OUT}${OFFICIAL_OPTS}
+echo --outDS ${OUT}${OFFICIAL_OPTS}
