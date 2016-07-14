@@ -32,9 +32,19 @@ PROC=$(echo $DS | cut -d . -f 3 | sed -r 's/([^_]*).*/\1/')
 FLAV=$(echo $DS | cut -d . -f 5 | sed -r 's/.*AOD_(.*)/\1/')
 TAGS=$(echo $DS | cut -d . -f 6 | sed -r 's:/::')
 GITT=$(git describe)
-OUT=${SCOPE}.${HEAD}.${PROC}_${FLAV}.${TAGS}.${GITT}
+APP=""
 if [[ -n $TAG ]] ; then
-    OUT+=.${TAG}
+    APP=.${TAG}
+fi
+OUT=${SCOPE}.${HEAD}.${PROC}_${FLAV}.${TAGS}.${GITT}${APP}
+
+# possibly cut down the size further
+if (( $(echo $OUT | wc -c) > 115 )) ; then
+    OUT=${SCOPE}.${HEAD}.${FLAV}.${TAGS}.${GITT}${APP}
+fi
+if (( $(echo $OUT | wc -c) > 115 )) ; then
+    echo "ERROR: ds name $OUT is too long" >&2
+    exit 1
 fi
 
 echo --outDS ${OUT}${OFFICIAL_OPTS}
