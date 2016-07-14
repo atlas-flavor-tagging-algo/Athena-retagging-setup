@@ -21,6 +21,7 @@ Options:
  -j: jobOptions to use (default ${JO})
  -d: input dataset to use (default ${DS})
  -t: tag for output dataset
+ -u: upload local json / calibration files
  -e: test run, just echo command
 
 EOF
@@ -29,13 +30,15 @@ EOF
 OPTS=""
 PREFIX_CMD=""
 TAG=""
-while getopts ":hn:j:d:et:" opt $@; do
+UPLOAD_LOCAL=""
+while getopts ":hn:j:d:t:ue" opt $@; do
 	  case $opt in
 	      h) _help; exit 1;;
 	      n) OPTS+=" --nFiles ${OPTARG}";;
         j) JO=${OPTARG};;
         d) DS=${OPTARG};;
         t) TAG=${OPTARG};;
+        u) UPLOAD_LOCAL=1;;
         e) PREFIX_CMD=echo;;
 	      # handle errors
 	      \?) _usage; echo "Unknown option: -$OPTARG" >&2; exit 1;;
@@ -53,5 +56,8 @@ OUT_OPTS=$(${SCRIPT_DIR}/output-from-input-and-voms.sh $DS $TAG)
 OPTS+=${OUT_OPTS}
 # OPTS+=" --nFiles 50"
 # OPTS+=" --excludedSite=ANALY_FZK,ANALY_FZK_HI"
-OPTS+=" --extFile ipmp.json,ipmk.json,dl1.json"
+if [[ -n $UPLOAD_LOCAL ]] ; then
+    JSON_FILES=$(echo *.json | tr " " ",")
+    OPTS+=" --extFile $JSON_FILES"
+fi
 ${PREFIX_CMD} pathena ${JO} --inDS $DS $OPTS
