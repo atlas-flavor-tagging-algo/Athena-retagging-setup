@@ -15,15 +15,15 @@ VOMS=$(voms-proxy-info --vo 2> /dev/null)
 if [[ -z $VOMS ]] ; then
     echo "ERROR: no voms, quitting" >&2
     exit 1
-elif [[ $VOMS == atlas ]] ; then
-    SCOPE=user.${USER}
-    OFFICIAL_OPTS=""
-    FQAN=$(voms-proxy-info --fqan 2> /dev/null | grep 'Role=production' )
-    # if we have production rights add that to the scope / queue
-    if [[ -n $FQAN ]] ; then
-        SCOPE=group.$(echo $FQAN | cut -d / -f 3)
-        OFFICIAL_OPTS=" --official --voms ${VOMS}:${FQAN%/*}"
-    fi
+fi
+# if there is one, start with user opts
+SCOPE=user.${USER}
+OFFICIAL_OPTS=""
+# ... then check for production role
+PR='Role=production'
+if FQAN=$(voms-proxy-info --fqan 2> /dev/null | grep $PR) ; then
+    SCOPE=group.$(echo $FQAN | cut -d / -f 3)
+    OFFICIAL_OPTS=" --official --voms ${VOMS}:${FQAN%/*}"
 fi
 
 # -- figure out new DS name --

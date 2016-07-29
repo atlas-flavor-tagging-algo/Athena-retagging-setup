@@ -22,10 +22,11 @@ live.
 
 Options:
  -h: get help
- -n: n files to use (default all)
- -j: jobOptions to use (default ${JO})
- -d: input dataset to use (default ${DS})
- -t: tag for output dataset
+ -n <number>: n files to use (default all)
+ -j <python script>: jobOptions to use (default ${JO})
+ -d <dataset>: input dataset to use (default ${DS})
+ -t <tag>: tag for output dataset
+ -z <file>: create / submit a gziped tarball
  -u: upload local json / calibration files
  -e: test run, just echo command
 
@@ -33,18 +34,20 @@ EOF
 }
 
 OPTS=""
-PREFIX_CMD=""
+ECHO=""
 TAG=""
 UPLOAD_LOCAL=""
-while getopts ":hn:j:d:t:ue" opt $@; do
+ZIP=""
+while getopts ":hn:j:d:t:z:ue" opt $@; do
     case $opt in
         h) _help; exit 1;;
         n) OPTS+=" --nFiles ${OPTARG}";;
         j) JO=${OPTARG};;
         d) DS=${OPTARG};;
         t) TAG=${OPTARG};;
+        z) ZIP=${OPTARG};;
         u) UPLOAD_LOCAL=1;;
-        e) PREFIX_CMD=echo;;
+        e) ECHO=1;;
         # handle errors
         \?) _usage; echo "Unknown option: -$OPTARG" >&2; exit 1;;
         :) _usage; echo "Missing argument for -$OPTARG" >&2; exit 1;;
@@ -56,13 +59,28 @@ SCRIPT_DIR=$(dirname $BASH_SOURCE)
 OUT_OPTS=$(${SCRIPT_DIR}/output-from-input-and-voms.sh $DS $TAG)
 
 # setup options
-# OPTS+=" --nFiles 2"
-OPTS+=${OUT_OPTS}
+OPTS=${OUT_OPTS}
 OPTS+=" --nFilesPerJob 5"
-# OPTS+=" --nFiles 50"
 # OPTS+=" --excludedSite=ANALY_FZK,ANALY_FZK_HI"
 if [[ -n $UPLOAD_LOCAL ]] ; then
     JSON_FILES=$(echo *.json | tr " " ",")
     OPTS+=" --extFile $JSON_FILES"
 fi
-${PREFIX_CMD} pathena ${JO} --inDS $DS $OPTS
+
+# pack stuff into a tarball before submitting
+if [[ -n $ZIP ]] ; then
+    if [[ ! -f $ZIP ]]; then
+        echo "making tarball of local files: ${ZIP}" >&2
+        pathena ${JO} --outTarBall=${ZIP} $OPTS --noSubmit
+    fi
+    OPTS+=" --inTarBall=${ZIP}"
+fi
+
+echo "submitting over dataset ${DS}" >&2
+CMD="pathena ${JO} --inDS $DS $OPTS"
+if [[ -n $ECHO ]] ; then
+    echo $CMD >&2
+else
+    eval $CMD
+fi
+echo $OUT_OPTS | cut -d ' ' -f 2
