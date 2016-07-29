@@ -20,5 +20,9 @@ cd run/
 ln -sf $JO_DIR/jobOptions_tagdl1.py
 ln -sf $JO_DIR/jobOptions_Tag_bb.py jobOptions_tagbb.py
 ln -sf $JO_DIR/jobOptions_Tag.py jobOptions_tag.py
+
+# patch additional job options
 PATCH_DIR=${TestArea}/../job-option-patches
 patch jobOptions_tag.py < ${PATCH_DIR}/single-b-jo-hack.patch
+cp jobOptions_tagbb.py jobOptions_holistic.py
+patch jobOptions_holistic.py < ${PATCH_DIR}/bb-to-holistic.patch
