@@ -1,13 +1,15 @@
---- jobOptions_Tag_bb.py	2016-07-29 16:23:14.000000001 +0200
-+++ jobOptions_holistic.py	2016-07-29 16:29:42.000000001 +0200
-@@ -4,8 +4,8 @@
- 
- ONLYEssentialInfo = False  ## write minimal amount of info on the output file
- ReduceInfo        = False  ## write minimal amount of info on the output file
--dumpCalo          = False  ## dump calo clusters
--dumpTrackCov      = False  ## dump track covariance matrices
-+dumpCalo          = True  ## dump calo clusters
-+dumpTrackCov      = True  ## dump track covariance matrices
- DoMSV             = True  ## include variables for MSV tagger
- doSMT             = True  ## include variables for SMT tagger
- subJetCollections = ['AntiKt2PV0TrackJets', 'AntiKtVR50Rmax4Rmin0TrackJets']
+--- jobOptions_tagbb.py	2016-07-30 00:06:33.000000001 +0200
++++ jobOptions_holistic.py	2016-07-30 00:12:03.000000001 +0200
+@@ -266,8 +266,12 @@
+   alg.EssentialInfo=ONLYEssentialInfo
+   alg.DoMSV     =DoMSV
+   alg.Rel20     =True
++
+   alg.SubjetInfo = True
++  alg.DumpTrackCovariance = True
++  alg.DumpCaloInfo = True
+   #alg.CleanParentJets = True
++
+   alg.JetCleaningTool.CutLevel= "LooseBad" 
+   alg.JetCleaningTool.DoUgly  = True
+   if not doComputeReference: algSeq += alg
