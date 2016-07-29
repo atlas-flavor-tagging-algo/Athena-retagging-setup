@@ -26,3 +26,5 @@ PATCH_DIR=${TestArea}/../job-option-patches
 patch jobOptions_tag.py < ${PATCH_DIR}/single-b-jo-hack.patch
 cp jobOptions_tagbb.py jobOptions_holistic.py
 patch jobOptions_holistic.py < ${PATCH_DIR}/bb-to-holistic.patch
+cp jobOptions_tagdl1.py jobOptions_iprnn.py
+patch jobOptions_iprnn.py < ${PATCH_DIR}/dl1-to-iprnn.patch

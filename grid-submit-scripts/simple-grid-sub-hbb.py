@@ -6,7 +6,7 @@ set -eu
 
 SCRIPT_DIR=$(dirname $BASH_SOURCE)
 
-OPTS=" -j jobOptions_ipnn.py"
+OPTS=" -j jobOptions_holistic.py"
 OPTS+=" -t holistic"
 # OPTS+=" -e"
 for DS in $(cat $SCRIPT_DIR/hbb-files.txt); do
