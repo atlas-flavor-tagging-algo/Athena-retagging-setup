@@ -11,9 +11,8 @@ DS=$1
 TAG=${2-}
 
 # -- check the voms --
-VOMS=$(voms-proxy-info --vo 2> /dev/null)
-if [[ -z $VOMS ]] ; then
-    echo "ERROR: no voms, quitting" >&2
+if ! VOMS=$(voms-proxy-info --vo 2> /dev/null) || [[ -z $VOMS ]]; then
+    echo "ERROR: voms-proxy-init not run, quitting" >&2
     exit 1
 fi
 # if there is one, start with user opts
