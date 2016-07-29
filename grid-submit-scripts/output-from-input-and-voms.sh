@@ -28,10 +28,11 @@ fi
 
 # -- figure out new DS name --
 # first try to match the somthing_XXTeV
-HEAD=$(echo $DS | egrep -o '[^.:]*_[0-9]+TeV' | head -n1 )
+HEAD=$(echo $DS | egrep -o '[^.:]*_[0-9]+TeV\.' | head -n1 )
 # take the part after the DSID
 SDS=$(echo $DS | sed -r 's/.*\.([0-9]{6,}.*)/\1/')
 DSID=$(echo $SDS | cut -d . -f 1)
+LONGPROC=$(echo $SDS | cut -d . -f 2)
 PROC=$(echo $SDS | cut -d . -f 2 | sed -r 's/([^_]*).*/\1/')
 # try to figure out the type of dataset
 FLAV_RE='s/.*\.([A-Z_0-9]{3,})\..*/\1/' # get AOD_* string
@@ -45,13 +46,22 @@ APP=""
 if [[ -n $TAG ]] ; then
     APP=.${TAG}
 fi
-OUT=${SCOPE}.${HEAD:-derived}.${DSID}.${PROC}_${FLAV}.${TAGS}.${GITT}${APP}
+OUT=${SCOPE}.${HEAD}${DSID}.${LONGPROC}.${FLAV}.${TAGS}.${GITT}${APP}
 
 # possibly cut down the size further
-if (( $(echo $OUT | wc -c) > 115 )) ; then
+function too_long() {
+    if (( $(echo $OUT | wc -c) > 115 )); then
+        return 0
+    fi
+    return 1
+}
+if too_long ; then
+    OUT=${SCOPE}.${DSID}.${PROC}.${FLAV}.${TAGS}.${GITT}${APP}
+fi
+if too_long ; then
     OUT=${SCOPE}.${DSID}.${FLAV}.${TAGS}.${GITT}${APP}
 fi
-if (( $(echo $OUT | wc -c) > 115 )) ; then
+if too_long ; then
     echo "ERROR: ds name $OUT is too long" >&2
     exit 1
 fi

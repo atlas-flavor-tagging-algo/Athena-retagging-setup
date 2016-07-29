@@ -17,6 +17,9 @@ Submit job over some dataset. Internally figures out the output
 dataset name and special permissions (based on the options you setup
 with voms).
 
+Note that this should be run from the directory where your job options
+live.
+
 Options:
  -h: get help
  -n: n files to use (default all)
