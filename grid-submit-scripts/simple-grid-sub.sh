@@ -56,9 +56,9 @@ SCRIPT_DIR=$(dirname $BASH_SOURCE)
 OUT_OPTS=$(${SCRIPT_DIR}/output-from-input-and-voms.sh $DS $TAG)
 
 # setup options
-OPTS+=" --nFilesPerJob 5"
 # OPTS+=" --nFiles 2"
 OPTS+=${OUT_OPTS}
+OPTS+=" --nFilesPerJob 5"
 # OPTS+=" --nFiles 50"
 # OPTS+=" --excludedSite=ANALY_FZK,ANALY_FZK_HI"
 if [[ -n $UPLOAD_LOCAL ]] ; then
