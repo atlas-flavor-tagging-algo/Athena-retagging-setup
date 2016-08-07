@@ -68,7 +68,7 @@ if ! git diff-index --quiet HEAD && [[ ! $FORCE ]]; then
 fi
 
 SCRIPT_DIR=$(dirname $BASH_SOURCE)
-OUT_OPTS=$(${SCRIPT_DIR}/output-from-input-and-voms.sh $DS $TAG)
+OUT_OPTS=$(${SCRIPT_DIR}/ftag-grid-name.sh $DS $TAG)
 
 # setup options
 OPTS=${OUT_OPTS}
