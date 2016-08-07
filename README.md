@@ -35,7 +35,7 @@ be compiled and the work area will be set up.
 #### Submitting Grid Jobs
 
 Several scripts are included in `grid-submit-scripts`, the most
-important being `simple-grid-sub.sh`. Run with `-h` to get more
+important being `ftag-grid-sub.sh`. Run with `-h` to get more
 information.
 
 #### Details for specific job options (JO):

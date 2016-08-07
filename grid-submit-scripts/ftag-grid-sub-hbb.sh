@@ -26,6 +26,6 @@ OPTS+=" -t holistic"
 # OPTS+=" -e"
 OPTS+=" -z ${ZIP}"
 for DS in $(cat $SCRIPT_DIR/hbb-files-resub.txt); do
-    ${SCRIPT_DIR}/simple-grid-sub.sh $OPTS -d $DS >> $OUT_DATASETS
+    ${SCRIPT_DIR}/ftag-grid-sub.sh $OPTS -d $DS >> $OUT_DATASETS
 done
 
