@@ -8,31 +8,23 @@ Setting up Athena with retagging, according to
 #### How to use:
 
  1. Start from a new lxplus session.
- 2. To create a Athena test area, run
 
-    `. setup-and-build-all.sh <path-to-test-area>`
+ 2. Run `. setup.sh`.
 
-    This will create a subdirectory and build the required
+    This will create an `athena` subdirectory and build the required
     packages. If anything goes wrong (i.e. the compilation will
     randomly segfault, the best known solution is to try again), you
-    can rerun the individual executables from the
-    `<path-to-test-area>` directory.
+    can rerun the build scripts from the `athena` directory.
 
+    If the `athena` directory already exists the environment will be
+    set up but the build steps will be skipped.
 
- 3. **If the test area has already been built**,
+ 3. The Athena Job Options files will be linked under
+    `athena/run`. Go there and run
 
-    `. setup-environment.sh <path-to-test-area>`
-
-    will set up Athena in your previously created test area.  Rules
-    for the arguments remain the same.
-
- 4. The Athena Job Options files will be linked under
-    `<path-to-test-area>/run`. Go there and run
-
-    `athena {jobOptions_tagdl1.py, jobOptions_tagbb.py}`
+    `athena {jobOptions_tagdl1.py, jobOptions_tagbb.py, ...}`
 
 That's it.
-
 
 #### What this will do:
 

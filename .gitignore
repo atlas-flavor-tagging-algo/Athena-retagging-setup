@@ -1,9 +1,8 @@
 # ignore subdirectories
-/*/
+/athena/
+
 # ignore athena stuff
 .asetup.save
+
 # ignore commit messages
 commit.txt
-# don't ignore the scripts dir, though
-!/grid-submit-scripts/
-!/job-option-patches/
