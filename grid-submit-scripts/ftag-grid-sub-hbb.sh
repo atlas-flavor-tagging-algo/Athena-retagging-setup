@@ -5,22 +5,24 @@
 set -eu
 if (( $# < 1 )); then
     echo "usage: ${0##*/} <input_dataest_list>" >&2
-    return 1
+    exit 1
 fi
 INPUT_FILE=$1
 
 SCRIPT_DIR=$(dirname $BASH_SOURCE)
 ZIP=holistic.tgz
 OUT_DATASETS=$(mktemp)
-OUT_DATASETS_FINAL=output-datasets.txt
+OUT_DATASETS_FINAL=output-datasets-$(date +%F-%k-%M).txt
 
 function cleanup() {
     if [[ -f ${ZIP} ]] ; then
         echo "removing ${ZIP}"
         rm ${ZIP}
     fi
-    echo "storing output ds names in ${OUT_DATASETS_FINAL}"
-    mv -f $OUT_DATASETS $OUT_DATASETS_FINAL
+    if [[ $(wc $OUT_DATASETS -l | awk '{print $1}') != 0 ]] ; then
+        echo "storing output ds names in ${OUT_DATASETS_FINAL}"
+        mv -f $OUT_DATASETS $OUT_DATASETS_FINAL
+    fi
 }
 trap cleanup EXIT
 
@@ -30,7 +32,6 @@ OPTS+=" -t holistic"
 # OPTS+=" -e"
 OPTS+=" -z ${ZIP}"
 for DS in $(cat $INPUT_FILE); do
-    echo $DS
-    # ${SCRIPT_DIR}/ftag-grid-sub.sh $OPTS -d $DS >> $OUT_DATASETS
+    ${SCRIPT_DIR}/ftag-grid-sub.sh $OPTS -d $DS >> $OUT_DATASETS
 done
 
