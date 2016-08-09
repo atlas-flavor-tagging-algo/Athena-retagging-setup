@@ -3,7 +3,11 @@
 # submit jobs for h->bb studies
 
 set -eu
-
+if (( $# < 1 )); then
+    echo "usage: ${0##*/} <input_dataest_list>" >&2
+    return 1
+fi
+INPUT_FILE=$1
 
 SCRIPT_DIR=$(dirname $BASH_SOURCE)
 ZIP=holistic.tgz
@@ -25,7 +29,8 @@ OPTS+=" -t holistic"
 # OPTS+=" -n 1"
 # OPTS+=" -e"
 OPTS+=" -z ${ZIP}"
-for DS in $(cat $SCRIPT_DIR/hbb-files-resub.txt); do
-    ${SCRIPT_DIR}/ftag-grid-sub.sh $OPTS -d $DS >> $OUT_DATASETS
+for DS in $(cat $INPUT_FILE); do
+    echo $DS
+    # ${SCRIPT_DIR}/ftag-grid-sub.sh $OPTS -d $DS >> $OUT_DATASETS
 done
 

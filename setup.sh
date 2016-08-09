@@ -2,23 +2,9 @@
 
 ATHENA_DIR=athena
 START_DIR=$(pwd)
-echo ${BASH_SOURCE}
 cd $(dirname ${BASH_SOURCE})
 
 # functions (expect to be executed within ATHENA_DIR)
-function _setup_athena() {
-    export ATLAS_LOCAL_ROOT_BASE=/cvmfs/atlas.cern.ch/repo/ATLASLocalRootBase
-    alias setupATLAS='source ${ATLAS_LOCAL_ROOT_BASE}/user/atlasLocalSetup.sh'
-    if [[ ! $ATLAS_LOCAL_ASETUP_VERSION ]] ; then
-        echo -n "setting up local ATLAS environment..."
-        setupATLAS -q
-        lsetup asetup
-        echo "done"
-    else
-        echo "ATLAS environment is already setup, not setting up again"
-    fi
-    asetup 20.7.6.1,AtlasDerivation,here
-}
 function _build_packages() {
     # run other setup subjobs
     local SRC_DIR=..
@@ -34,15 +20,15 @@ function _build_packages() {
 if [[ ! -d $ATHENA_DIR ]] ; then
     mkdir $ATHENA_DIR
     cd $ATHENA_DIR
-    _setup_athena
+    . ${START_DIR}/setup-athena.sh
     _build_packages
 else
     cd $ATHENA_DIR
-    _setup_athena
+    . ${START_DIR}/setup-athena.sh
 fi
 
 cd $START_DIR
 
 # cleanup
 unset ATHENA_DIR START_DIR
-unset -f _setup_athena _build_packages
+unset -f _build_packages
