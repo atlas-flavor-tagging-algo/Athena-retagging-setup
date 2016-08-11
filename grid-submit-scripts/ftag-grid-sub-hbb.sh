@@ -4,7 +4,7 @@
 
 set -eu
 if (( $# < 1 )); then
-    echo "usage: ${0##*/} <input_dataest_list>" >&2
+    echo "usage: ${0##*/} <input_dataest_list> [<tag>]" >&2
     exit 1
 fi
 INPUT_FILE=$1
@@ -27,7 +27,11 @@ function cleanup() {
 trap cleanup EXIT
 
 OPTS=" -j jobOptions_holistic.py"
-OPTS+=" -t holistic"
+if [[ $# == 2 ]]; then
+    OPTS+=" -t $2"
+else
+    OPTS+=" -t holistic"
+fi
 # OPTS+=" -n 1"
 # OPTS+=" -e"
 OPTS+=" -z ${ZIP}"
