@@ -8,4 +8,5 @@ if [[ ! $ATLAS_LOCAL_ASETUP_VERSION ]] ; then
 else
     echo "ATLAS environment is already setup, not setting up again"
 fi
+lsetup asetup
 asetup 20.7.6.1,AtlasDerivation,here
