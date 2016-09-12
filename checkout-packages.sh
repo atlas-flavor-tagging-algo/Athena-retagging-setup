@@ -7,7 +7,7 @@ set -eu
 
 cmt co -r MVAUtils-00-00-04 Reconstruction/MVAUtils
 pkgco.py BTagging-00-07-64
-pkgco.py JetTagTools-01-00-96-branch
+pkgco.py JetTagTools-01-00-96-03
 # pkgco.py JetTagTools-01-00-96
 
 # git clone git@github.com:atlas-flavor-tagging-algo/xAODAthena.git
