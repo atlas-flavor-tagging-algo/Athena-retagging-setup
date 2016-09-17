@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-set -eu
+if [[ $- == *i* ]] ; then
+    echo "Don't source me bro!" >&2
+    return 1
+else
+    set -eu
+fi
+
 
 if [[ ! -d $TestArea/xAODAthena/run ]] ; then
     echo "ERROR: no run directory found to copy files from..." >&2

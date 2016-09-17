@@ -5,7 +5,12 @@
 # the output name and checks for `production` roll to find the submit
 # rights.
 
-set -eu
+if [[ $- == *i* ]] ; then
+    echo "Don't source me bro!" >&2
+    return 1
+else
+    set -eu
+fi
 
 DS=$1
 TAG=${2-}

@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-set -eu
+if [[ $- == *i* ]] ; then
+    echo "Don't source me bro!" >&2
+    return 1
+else
+    set -eu
+fi
 
 # ________________________________________________________________________
 # build all the things

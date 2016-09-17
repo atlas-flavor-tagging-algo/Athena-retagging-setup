@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+if [[ $- == *i* ]] ; then
+    echo "Don't source me bro!" >&2
+    return 1
+else
+    set -eu
+fi
+
 INPUT_TAG=FTAG5-V1_EXT0
 DS=group.phys-exotics.410000.PowhegPythiaEvtGen_P2012_ttbar_hdamp172p5_nonallhad.recon.AOD.e3698_s2608_s2183_r7377_r7351.${INPUT_TAG}/
 

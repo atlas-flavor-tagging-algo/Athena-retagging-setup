@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 #
 # submit jobs for h->bb studies
+if [[ $- == *i* ]] ; then
+    echo "Don't source me bro!" >&2
+    return 1
+else
+    set -eu
+fi
 
-set -eu
 if (( $# < 1 )); then
     echo "usage: ${0##*/} <input_dataest_list> [<tag>]" >&2
     exit 1
