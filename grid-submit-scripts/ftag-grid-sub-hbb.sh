@@ -40,6 +40,7 @@ fi
 # OPTS+=" -n 1"
 # OPTS+=" -e"
 OPTS+=" -z ${ZIP}"
+set +e
 for DS in $(cat $INPUT_FILE); do
     ${SCRIPT_DIR}/ftag-grid-sub.sh $OPTS -d $DS >> $OUT_DATASETS
 done
