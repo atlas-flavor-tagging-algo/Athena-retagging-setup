@@ -77,7 +77,8 @@ OUT_OPTS=$(${SCRIPT_DIR}/ftag-grid-name.sh $DS $TAG)
 
 # setup options
 OPTS=${OUT_OPTS}
-OPTS+=" --nFilesPerJob 5"
+OPTS+=" --nFilesPerJob 1"
+OPTS+=" --mergeOutput"
 # OPTS+=" --excludedSite=ANALY_FZK,ANALY_FZK_HI"
 if [[ -n $UPLOAD_LOCAL ]] ; then
     JSON_FILES=$(echo *.json | tr " " ",")
